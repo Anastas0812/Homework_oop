@@ -19,6 +19,24 @@ class Lecturer(Mentor):
             av_grade_lec = sum(i) / len(i)
         return av_grade_lec
 
+    def __eq__(self, other): #==
+        if not isinstance(other, Lecturer):
+            print('error')
+            return
+        return self.av_grade_lecture() == other.av_grade_lecture()
+
+    def __gt__(self, other): #>
+        if not isinstance(other, Lecturer):
+            print('error')
+            return
+        return self.av_grade_lecture() > other.av_grade_lecture()
+
+    def __lt__(self, other): #<
+        if not isinstance(other, Lecturer):
+            print('error')
+            return
+        return self.av_grade_lecture() < other.av_grade_lecture()
+
 
 #Задание № 3. Полиморфизм и магические методы
     def __str__(self):
@@ -73,11 +91,28 @@ class Student:
         else:
             return 'Ошибка'
 
+    def __eq__(self, other): #==
+        if not isinstance(other, Student):
+            print('error')
+            return
+        return self.av_grade_homework() == other.av_grade_homework()
+
+    def __gt__(self, other): #>
+        if not isinstance(other, Student):
+            print('error')
+            return
+        return self.av_grade_homework() > other.av_grade_homework()
+
+    def __lt__(self, other): #<
+        if not isinstance(other, Student):
+            print('error')
+            return
+        return self.av_grade_homework() < other.av_grade_homework()
 
 
 some_reviewer = Reviewer('Some', 'Buddy')
 some_reviewer.courses_attached += ['Python']
-print(f'У проверяющих он должен выводить информацию в следующем виде:\n{some_reviewer}')
+# print(f'У проверяющих он должен выводить информацию в следующем виде:\n{some_reviewer}')
 
 some_lecturer = Lecturer('Some', 'Buddy')
 some_lecturer.courses_attached += ['Python']
@@ -89,14 +124,14 @@ new_list = some_student.courses_in_progress + some_student.finished_courses
 
 some_student.rate_to_lecturer(some_lecturer, 'Python', 2)
 some_student.rate_to_lecturer(some_lecturer, 'Python', 10)
-some_student.rate_to_lecturer(some_lecturer, 'Python', 9.8)
-print(f'У лекторов\n{some_lecturer}')
+some_student.rate_to_lecturer(some_lecturer, 'Python', 9)
+# print(f'У лекторов\n{some_lecturer}')
 
 some_reviewer.rate_reviewer(some_student, 'Python', 2)
 some_reviewer.rate_reviewer(some_student, 'Python', 10)
-some_reviewer.rate_reviewer(some_student, 'Python', 9.8)
+some_reviewer.rate_reviewer(some_student, 'Python', 9)
 
-print(f'А у студентов так:\n{some_student}')
+# print(f'А у студентов так:\n{some_student}')
 
 chemist = Mentor('Dmitriy', 'Mendeleev')
 poet = Mentor('Aleksandr', 'Puskin')
@@ -126,24 +161,19 @@ rev1 = Reviewer('Екатерина', 'Соколова')
 rev1.courses_attached += ['Python']
 rev1.rate_reviewer(stud1, 'Python', 10)
 rev1.rate_reviewer(stud2, 'Python', 9)
-print(rev1)
+# print(rev1)
 
 rev2 = Reviewer('Антон', 'Орлов')
 rev2.courses_attached += ['Python']
 rev2.rate_reviewer(stud1, 'Python', 2)
 rev2.rate_reviewer(stud2, 'Python', 9)
-print(rev2)
+# print(rev2)
 
-print(lec1)
-print(lec2)
-print(stud1)
-print(stud2)
-print(stud1.av_grade_homework() < stud2.av_grade_homework()) #True
-print(stud1.av_grade_homework() > stud2.av_grade_homework()) #False
-print(stud1.av_grade_homework() == stud2.av_grade_homework())  #False
-print(lec1.av_grade_lecture() < lec2.av_grade_lecture()) #False
-print(lec1.av_grade_lecture() > lec2.av_grade_lecture()) #False
-print(lec1.av_grade_lecture() == lec2.av_grade_lecture()) #True
+# print(lec1)
+# print(lec2)
+# print(stud1)
+# print(stud2)
+
 
 list_students = [some_student, stud1, stud2]
 list_lectures = [some_lecturer, lec1, lec2]
@@ -165,5 +195,14 @@ def av_all_grades_lecturer(list_lecturer, course):
             count += 1
     return round(sum/count, 1)
 
-print(f'Средняя оценка для всех студентов по курсу {"Python"}: {av_all_grades_student(list_students, "Python")}')
-print(f'Средняя оценка для всех лекторов по курсу {"Python"}: {av_all_grades_lecturer(list_lectures, "Python")}')
+# print(f'Средняя оценка для всех студентов по курсу {"Python"}: {av_all_grades_student(list_students, "Python")}')
+# print(f'Средняя оценка для всех лекторов по курсу {"Python"}: {av_all_grades_lecturer(list_lectures, "Python")}')
+
+#работа над ошибками
+print(lec1 == lec2)
+print(lec1 < lec2)
+print(some_lecturer > lec1)
+
+print(stud1 == stud2)
+print(stud1 > stud2)
+print(some_student < stud1)
